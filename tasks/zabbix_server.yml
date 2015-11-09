@@ -1,0 +1,14 @@
+---
+
+- name: zabbix requirements are present
+  apt: name={{ item }} state=present
+  with_items:
+    - snmp
+    - libnet-snmp-perl
+    - snmp-mibs-downloader
+
+- name: zabbix is present
+  apt: name={{ item }} state=present
+  with_items:
+    - zabbix-server-mysql
+    - zabbix-frontend-php

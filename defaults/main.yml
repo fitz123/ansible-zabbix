@@ -1,0 +1,4 @@
+---
+
+zabbix_server_enabled: no
+zabbix_client_enabled: no

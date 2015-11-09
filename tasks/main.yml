@@ -1,0 +1,9 @@
+---
+
+- include: zabbix_server.yml
+  when: zabbix_server_enabled
+  tags: [zabbix_server]
+
+- include: zabbix_agent.yml
+  when: zabbix_agent_enabled
+  tags: [zabbix_agent]
