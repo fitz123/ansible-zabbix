@@ -2,3 +2,10 @@
 
 zabbix_server_enabled: no
 zabbix_client_enabled: no
+zabbix_frontend_enabled: no
+
+zabbix_ver: 
+  major: 2.4
+  minor: 6
+
+zabbix_tmpdir: /tmp/zabbix

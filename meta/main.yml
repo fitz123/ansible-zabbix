@@ -7,4 +7,4 @@ dependencies:
                      db_user_password: zabbix_db_@dm1n_user!,
                      db: zabbix }
   - { role: nginx-src, nginx_enabled: yes }
-  - { role: php-fpm, php_fpm_enabled: yes}
+  - { role: php-fpm, php_fpm_enabled: yes }

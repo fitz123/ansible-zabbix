@@ -2,8 +2,12 @@
 
 - include: zabbix_server.yml
   when: zabbix_server_enabled
-  tags: [zabbix_server]
+  tags: [zabbix, zabbix_server]
+
+- include: zabbix_frontend.yml
+  when: zabbix_frontend_enabled
+  tags: [zabbix, zabbix_frontend]
 
 - include: zabbix_agent.yml
   when: zabbix_agent_enabled
-  tags: [zabbix_agent]
+  tags: [zabbix, zabbix_agent]

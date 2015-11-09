@@ -1,0 +1,60 @@
+---
+
+- name: Install app dependensies
+  apt: pkg=ttf-dejavu-core state=present
+  when: app == 'zabbix'
+
+- name: Provision Application Database
+  mysql_db: name={{ db }} state=present
+  when: mariadb_enabled
+
+- name: Grant application user access to DB
+  mysql_user: name={{ db_user }} priv={{ db }}.*:ALL
+              host="localhost" password={{ db_user_password }}
+              state=present
+  when: mariadb_enabled
+
+- name: Create www directory
+  file: path=/srv/www state=directory owner=root group=root mode=0755
+
+- name: app tmp dir is present
+  file: path={{ zabbix_tmpdir }} state=directory
+
+- name: get app
+  get_url: url=http://repo.zabbix.com/zabbix/{{ zabbix_ver.major }}/{{ ansible_lsb.id | lower }}/pool/main/z/zabbix/{{ item.pkg }}_{{ zabbix_ver.major }}.{{ zabbix_ver.minor }}-1+{{ ansible_lsb.codename }}_{{ item.arch }}.deb
+           dest={{ zabbix_tmpdir }}/{{ item.pkg }}.deb
+  with_items:
+    - { pkg: zabbix-frontend-php, arch: all }
+  tags: dev2
+
+- name: app source is present
+  command: 'dpkg -x {{ zabbix_tmpdir }}/zabbix-frontend-php.deb {{ zabbix_tmpdir }}'
+  args: { creates: "/srv/www/{{ app }}" }
+  tags: dev
+
+- name: app is installed
+  command: 'cp -R {{ zabbix_tmpdir }}/usr/share/zabbix/ /srv/www/'
+  args: { creates: "/srv/www/{{ app }}" }
+  tags: dev
+
+- name: Set public_html tree ownership
+  file: path=/srv/www/{{ app }}
+        state=directory
+        recurse=yes
+        owner="www-data" group="adm"
+  tags: app_permissions
+
+- name: Grant permissions for directory tree
+  command: 'find /srv/www/{{ app }} -type d -exec chmod 2570 {} \;'
+  changed_when: false
+  tags: app_permissions
+
+- name: Grant permissions for files in the tree
+  command: 'find /srv/www/{{ app }} -type f -exec chmod 0470 {} \;'
+  changed_when: false
+  tags: app_permissions
+
+- name: Clean sgid suid exec bits from all files
+  command: 'find /srv/www/{{ app }} -type f -exec chmod ugo-sx {} \;'
+  changed_when: false
+  tags: app_permissions
