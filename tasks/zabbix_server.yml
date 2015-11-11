@@ -1,43 +1,29 @@
 ---
 
-- name: zabbix requirements are present
+- name: requirements are present
   apt: name={{ item }} state=present
   with_items:
     - snmp
     - libnet-snmp-perl
     - snmp-mibs-downloader
-  tags: dev2
 
-- name: zabbix tmp dir is present
+- name: tmp dir is present
   file: path={{ zabbix_tmpdir }} state=directory
 
-- name: get zabbix
+- name: get zabbix_server
   get_url: url=http://repo.zabbix.com/zabbix/{{ zabbix_ver.major }}/{{ ansible_lsb.id | lower }}/pool/main/z/zabbix/{{ item.pkg }}_{{ zabbix_ver.major }}.{{ zabbix_ver.minor }}-1+{{ ansible_lsb.codename }}_{{ item.arch }}.deb
            dest={{ zabbix_tmpdir }}/{{ item.pkg }}.deb
   with_items:
     - { pkg: zabbix-server-mysql, arch: amd64 }
-  tags: dev2
 
 - name: zabbix-server-mysql package is present
   apt: deb={{ zabbix_tmpdir }}/{{ item }}
   with_items:
     - 'zabbix-server-mysql.deb'
-  tags: dev3
 
-#- name: zabbix repo deb
-#  get_url: url=http://repo.zabbix.com/zabbix/{{ zabbix_ver }}/{{ ansible_lsb.id | lower }}/pool/main/z/zabbix-release/zabbix-release_{{ zabbix_ver }}-1+{{ ansible_lsb.codename }}_all.deb
-#           dest=/tmp/zabbix_server.deb
+- name: zabbix_server.conf
+  template: src={{ zabbix_server_conf }}.j2 dest=/etc/zabbix/{{ zabbix_server_conf }}
+  notify: zabbix server restart
 
-#- name: zabbix repo is present
-#  apt: deb=/tmp/zabbix_server.deb update_cache=yes
-
-#- name: zabbix-server is present
-#  apt: name={{ item }} state=present
-#  with_items:
-#    - zabbix-server-mysql
-
-#- name: zabbix-frontend-php is present
-#  apt: name={{ item }} state=present dpkg_options='ignore-depends'
-#  with_items:
-#    - zabbix-frontend-php
-#  tags: dev
+- name: service is up and running
+  service: name=zabbix-server state=running

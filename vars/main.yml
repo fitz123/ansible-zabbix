@@ -1,0 +1,8 @@
+---
+
+zabbix_server_conf: zabbix_server.conf
+zabbix_conf_php: zabbix.conf.php
+zabbix_agentd_conf: zabbix_agentd.conf
+
+zabbix_server_listen_port: 10051
+zabbix_agent_user: zabbix

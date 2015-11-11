@@ -1,11 +1,12 @@
 ---
 
-- name: Install app dependensies
-  apt: pkg=ttf-dejavu-core state=present
-  when: app == 'zabbix'
+##
+# Database
+##
 
 - name: Provision Application Database
   mysql_db: name={{ db }} state=present
+  register: app_db_state
   when: mariadb_enabled
 
 - name: Grant application user access to DB
@@ -13,6 +14,47 @@
               host="localhost" password={{ db_user_password }}
               state=present
   when: mariadb_enabled
+
+- name: Resore Database
+  mysql_db: name={{ db }} state=import target=/usr/share/zabbix-server-mysql/{{ item }}
+            login_user={{ db_user }} login_password={{ db_user_password }}
+  with_items:
+    - schema.sql
+    - images.sql
+    - data.sql
+  when: mariadb_enabled and app_db_state.changed
+
+##
+# PHP
+##
+
+- name: check php.ini
+  lineinfile: 
+              dest: /etc/php5/fpm/php.ini
+              regexp: '{{ item.key }} ='
+              line: '{{ item.key }} = {{ item.value }}'
+              backrefs: yes
+  with_dict: zabbix_php_requirements
+  when: php_fpm_enabled
+  notify: php5-fpm restart
+
+- name: check conf dir
+  file: path=/etc/zabbix/web/ state=directory
+        owner=www-data
+
+- name: app config
+  template: src={{ zabbix_conf_php }}.j2 dest=/etc/zabbix/web/{{ zabbix_conf_php }}
+            owner=www-data
+  when: php_fpm_enabled
+  notify: php5-fpm reload
+
+##
+# Code
+##
+
+- name: Install app dependensies
+  apt: pkg=ttf-dejavu-core state=present
+  when: app == 'zabbix'
 
 - name: Create www directory
   file: path=/srv/www state=directory owner=root group=root mode=0755
@@ -25,17 +67,14 @@
            dest={{ zabbix_tmpdir }}/{{ item.pkg }}.deb
   with_items:
     - { pkg: zabbix-frontend-php, arch: all }
-  tags: dev2
 
 - name: app source is present
   command: 'dpkg -x {{ zabbix_tmpdir }}/zabbix-frontend-php.deb {{ zabbix_tmpdir }}'
   args: { creates: "/srv/www/{{ app }}" }
-  tags: dev
 
 - name: app is installed
   command: 'cp -R {{ zabbix_tmpdir }}/usr/share/zabbix/ /srv/www/'
   args: { creates: "/srv/www/{{ app }}" }
-  tags: dev
 
 - name: Set public_html tree ownership
   file: path=/srv/www/{{ app }}
@@ -44,17 +83,17 @@
         owner="www-data" group="adm"
   tags: app_permissions
 
-- name: Grant permissions for directory tree
+- name: check permissions for directory tree
   command: 'find /srv/www/{{ app }} -type d -exec chmod 2570 {} \;'
   changed_when: false
   tags: app_permissions
 
-- name: Grant permissions for files in the tree
+- name: check permissions for files in the tree
   command: 'find /srv/www/{{ app }} -type f -exec chmod 0470 {} \;'
   changed_when: false
   tags: app_permissions
 
-- name: Clean sgid suid exec bits from all files
+- name: check absence of sgid suid exec bits from all files in the tree
   command: 'find /srv/www/{{ app }} -type f -exec chmod ugo-sx {} \;'
   changed_when: false
   tags: app_permissions

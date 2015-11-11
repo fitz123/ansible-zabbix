@@ -1,2 +1,22 @@
 ---
 
+- name: tmp dir is present
+  file: path={{ zabbix_tmpdir }} state=directory
+
+- name: get zabbix-agent
+  get_url: url=http://repo.zabbix.com/zabbix/{{ zabbix_ver.major }}/{{ ansible_lsb.id | lower }}/pool/main/z/zabbix/{{ item.pkg }}_{{ zabbix_ver.major }}.{{ zabbix_ver.minor }}-1+{{ ansible_lsb.codename }}_{{ item.arch }}.deb
+           dest={{ zabbix_tmpdir }}/{{ item.pkg }}.deb
+  with_items:
+    - { pkg: zabbix-agent, arch: amd64 }
+
+- name: zabbix-agent package is present
+  apt: deb={{ zabbix_tmpdir }}/{{ item }}
+  with_items:
+    - 'zabbix-agent.deb'
+
+- name: service is up and running
+  service: name=zabbix-agent state=running
+
+- name: zabbix_agentd.conf
+  template: src={{ zabbix_agentd_conf }}.j2 dest=/etc/zabbix/{{ zabbix_agentd_conf }}
+  notify: zabbix agent restart

@@ -9,3 +9,20 @@ zabbix_ver:
   minor: 6
 
 zabbix_tmpdir: /tmp/zabbix
+
+# https://www.zabbix.com/documentation/2.4/manual/installation/install_from_packages
+zabbix_php_requirements:
+  max_execution_time: '300'
+  memory_limit: '128M'
+  post_max_size: '16M'
+  upload_max_filesize: '2M'
+  max_input_time: '300'
+  date.timezone: 'Asia/Bangkok'
+
+# Zabbix server section
+
+zabbix_server_StartPingers: 10
+zabbix_server_StartHTTPPollers: 32
+zabbix_server_StartVMwareCollectors: 0
+
+zabbix_server_address: zbx2.tech.ilikehd.com
