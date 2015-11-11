@@ -146,6 +146,8 @@ DBSocket=/var/run/mysqld/mysqld.sock
 # Default:
 # StartIPMIPollers=0
 
+StartIPMIPollers={{ zabbix_server_StartIPMIPollers }}
+
 ### Option: StartPollersUnreachable
 #	Number of pre-forked instances of pollers for unreachable hosts (including IPMI and Java).
 #	At least one poller for unreachable hosts must be running if regular, IPMI or Java pollers
@@ -233,6 +235,8 @@ DBSocket=/var/run/mysqld/mysqld.sock
 # Default:
 # StartVMwareCollectors=0
 
+StartVMwareCollectors={{ zabbix_server_StartVMwareCollectors | default ('1') }}
+
 ### Option: VMwareFrequency
 #	How often Zabbix will connect to VMware service to obtain a new data.
 #
@@ -282,6 +286,8 @@ DBSocket=/var/run/mysqld/mysqld.sock
 # Range: 0-1
 # Default:
 # StartSNMPTrapper=0
+
+StartSNMPTrapper={{ zabbix_server_StartSNMPTrapper }}
 
 ### Option: ListenIP
 #	List of comma delimited IP addresses that the trapper should listen on.

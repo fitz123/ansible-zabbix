@@ -52,9 +52,14 @@
 # Code
 ##
 
-- name: Install app dependensies
+- name: app dependensies are present
   apt: pkg=ttf-dejavu-core state=present
   when: app == 'zabbix'
+
+- name: app font is present
+  command: 'update-alternatives --install /srv/www/{{ app }}/fonts/graphfont.ttf zabbix-frontend-font /usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf 10'
+  args: { removes: "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf",
+          creates: "/srv/www/{{ app }}/fonts/graphfont.ttf" }
 
 - name: Create www directory
   file: path=/srv/www state=directory owner=root group=root mode=0755

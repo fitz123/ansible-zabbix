@@ -122,9 +122,9 @@ Server={{ zabbix_server_address }}
 # Mandatory: no
 # Default:
 # ServerActive=
-
-ServerActive={{ zabbix_server_address }}:{{ zabbix_server_listen_port }}
-
+{% if zabbix_agent_ServerActive is defined %}
+ServerActive={{ zabbix_agent_ServerActive }}
+{% endif %}
 ### Option: Hostname
 #	Unique, case sensitive hostname.
 #	Required for active checks and must match hostname as configured on the server.

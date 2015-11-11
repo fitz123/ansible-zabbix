@@ -14,9 +14,9 @@
   with_items:
     - 'zabbix-agent.deb'
 
-- name: service is up and running
-  service: name=zabbix-agent state=running
-
 - name: zabbix_agentd.conf
   template: src={{ zabbix_agentd_conf }}.j2 dest=/etc/zabbix/{{ zabbix_agentd_conf }}
   notify: zabbix agent restart
+
+- name: service is up and running
+  service: name=zabbix-agent state=running
