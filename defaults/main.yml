@@ -1,15 +1,15 @@
 ---
 
+# Installation
 zabbix_server_enabled: no
-zabbix_client_enabled: no
 zabbix_frontend_enabled: no
+zabbix_client_enabled: yes
 
 zabbix_ver: 
   major: 2.4
   minor: 6
 
-zabbix_tmpdir: /tmp/zabbix
-
+## PHP configuration
 # https://www.zabbix.com/documentation/2.4/manual/installation/install_from_packages
 zabbix_php_requirements:
   max_execution_time: '300'
@@ -19,13 +19,14 @@ zabbix_php_requirements:
   max_input_time: '300'
   date.timezone: 'Asia/Bangkok'
 
-# Zabbix server section
-
+# Zabbix-server configuration
 zabbix_server_StartPingers: 10
 zabbix_server_StartHTTPPollers: 32
 zabbix_server_StartVMwareCollectors: 1
 zabbix_server_StartSNMPTrapper: 1
 zabbix_server_StartIPMIPollers: 1
 
-zabbix_server_address: zbx2.tech.ilikehd.com
-zabbix_agent_ServerActive: ''
+# Zabbix-agent configuration
+zabbix_agent_server_address: zbx2.tech.ilikehd.com
+## Zabbix server report to for active checks
+#zabbix_agent_ServerActive: ''

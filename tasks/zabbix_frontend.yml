@@ -81,7 +81,7 @@
   command: 'cp -R {{ zabbix_tmpdir }}/usr/share/zabbix/ /srv/www/'
   args: { creates: "/srv/www/{{ app }}" }
 
-- name: Set public_html tree ownership
+- name: check app tree ownership
   file: path=/srv/www/{{ app }}
         state=directory
         recurse=yes
