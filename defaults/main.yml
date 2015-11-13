@@ -3,7 +3,6 @@
 # Installation
 zabbix_server_enabled: no
 zabbix_frontend_enabled: no
-zabbix_agent_enabled: yes
 
 zabbix_ver: 
   major: 2.4
@@ -25,8 +24,3 @@ zabbix_server_StartHTTPPollers: 32
 zabbix_server_StartVMwareCollectors: 1
 zabbix_server_StartSNMPTrapper: 1
 zabbix_server_StartIPMIPollers: 1
-
-# Zabbix-agent configuration
-zabbix_agent_server_address: zbx2.tech.ilikehd.com
-## Zabbix server report to for active checks
-#zabbix_agent_ServerActive: ''
