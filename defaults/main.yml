@@ -3,7 +3,7 @@
 # Installation
 zabbix_server_enabled: no
 zabbix_frontend_enabled: no
-zabbix_client_enabled: yes
+zabbix_agent_enabled: yes
 
 zabbix_ver: 
   major: 2.4

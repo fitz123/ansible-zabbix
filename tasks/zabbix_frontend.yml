@@ -35,8 +35,19 @@
               line: '{{ item.key }} = {{ item.value }}'
               backrefs: yes
   with_dict: zabbix_php_requirements
-  when: php_fpm_enabled
+  when: php_fpm_enabled is defined and php_fpm_enabled
   notify: php5-fpm restart
+
+- name: check php.ini for hhvm
+  lineinfile: 
+              dest: /etc/hhvm/php.ini
+              insertafter: '; php options'
+              regexp: '{{ item.key }} ='
+              line: '{{ item.key }} = {{ item.value }}'
+              backrefs: no
+  with_dict: zabbix_php_requirements
+  when: hhvm_enabled is defined and hhvm_enabled
+  notify: hhvm restart
 
 - name: check conf dir
   file: path=/etc/zabbix/web/ state=directory

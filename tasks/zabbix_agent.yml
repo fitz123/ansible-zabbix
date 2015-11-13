@@ -18,5 +18,22 @@
   template: src={{ zabbix_agentd_conf }}.j2 dest=/etc/zabbix/{{ zabbix_agentd_conf }}
   notify: zabbix agent restart
 
+- name: zabbix-agent home directory
+  file: path=/var/lib/zabbix state=directory
+        owner=zabbix group=adm mode=750
+  when: mariadb_enabled is defined and mariadb_enabled
+  notify: zabbix agent restart
+  tags: 
+    - my_cnf
+
+- name: zabbix-agent .my.cnf file for DB monitoring
+  template: src=my_monitoring.cnf.j2 dest=/var/lib/zabbix/.my.cnf 
+            owner=zabbix group=adm mode=0640
+  when: mariadb_enabled is defined and mariadb_enabled
+        and db_mon_password is defined
+  notify: zabbix agent restart
+  tags: 
+    - my_cnf
+
 - name: service is up and running
   service: name=zabbix-agent state=running

@@ -82,7 +82,11 @@ LogFileSize=0
 # Default:
 # Server=
 
-Server={{ zabbix_agent_server_address }}
+Server=
+{%- for item in monitoring %}
+{{ item }}{% if not loop.last %},{% endif %}
+{%- endfor %}
+
 
 ### Option: ListenPort
 #	Agent will listen on this port for connections from the server.
@@ -122,9 +126,11 @@ Server={{ zabbix_agent_server_address }}
 # Mandatory: no
 # Default:
 # ServerActive=
+
 {% if zabbix_agent_ServerActive is defined %}
 ServerActive={{ zabbix_agent_ServerActive }}
 {% endif %}
+
 ### Option: Hostname
 #	Unique, case sensitive hostname.
 #	Required for active checks and must match hostname as configured on the server.
@@ -134,7 +140,7 @@ ServerActive={{ zabbix_agent_ServerActive }}
 # Default:
 # Hostname=
 
-Hostname= {{ hostname }}.{{ domain }}
+Hostname= {{ hostname | default('') }}.{{ domain | default('') }}
 
 ### Option: HostnameItem
 #	Item used for generating Hostname if it is undefined. Ignored if Hostname is defined.
