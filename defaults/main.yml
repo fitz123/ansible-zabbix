@@ -21,6 +21,7 @@ zabbix_php_requirements:
 # Zabbix-server configuration
 zabbix_server_StartPingers: 10
 zabbix_server_StartHTTPPollers: 32
-zabbix_server_StartVMwareCollectors: 1
 zabbix_server_StartSNMPTrapper: 1
 zabbix_server_StartIPMIPollers: 1
+zabbix_server_StartVMwareCollectors: 2
+zabbix_server_StartDiscoverers: 4

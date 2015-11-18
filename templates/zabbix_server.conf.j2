@@ -185,6 +185,8 @@ StartIPMIPollers={{ zabbix_server_StartIPMIPollers }}
 # Default:
 # StartDiscoverers=1
 
+StartDiscoverers={{ zabbix_server_StartDiscoverers | default ('1') }}
+
 ### Option: StartHTTPPollers
 #	Number of pre-forked instances of HTTP pollers.
 #

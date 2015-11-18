@@ -28,6 +28,7 @@
 - name: zabbix_server.conf
   template: src={{ zabbix_server_conf }}.j2 dest=/etc/zabbix/{{ zabbix_server_conf }}
   notify: zabbix server restart
+  tags: zabbix_conf
 
 - name: service is up and running
   service: name=zabbix-server state=running
