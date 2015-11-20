@@ -3,6 +3,7 @@
 # Installation
 zabbix_server_enabled: no
 zabbix_frontend_enabled: no
+zabbix_server_ipmi_ilo: yes
 
 zabbix_ver: 
   major: 2.4
@@ -22,6 +23,6 @@ zabbix_php_requirements:
 zabbix_server_StartPingers: 10
 zabbix_server_StartHTTPPollers: 32
 zabbix_server_StartSNMPTrapper: 1
-zabbix_server_StartIPMIPollers: 1
+zabbix_server_StartIPMIPollers: 2
 zabbix_server_StartVMwareCollectors: 2
 zabbix_server_StartDiscoverers: 4
