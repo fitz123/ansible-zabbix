@@ -1,0 +1,27 @@
+---
+
+- stat: path={{ zabbix_server_ExternalScripts }}/{{ item }}
+  register: script
+  with_items: impi_ilo_scripts
+  tags: dev
+
+- name: ExternalScripts are in place
+  copy: src=scripts/{{ item.item }} dest={{ zabbix_server_ExternalScripts }}/
+        owner={{ zabbix_server_user }} group=adm mode=0570
+  when: "not {{ item.stat.exists }}"
+  with_items: script.results
+  tags: dev
+
+- name: ExternalScripts user are instaled
+  replace: dest="{{ zabbix_server_ExternalScripts }}/{{ item }}"
+           regexp="^my \$user = '(.*)';$"
+           replace="my $user = '{{ zabbix_impi_ilo_user }}';"
+  with_items: impi_ilo_scripts
+  tags: dev
+
+- name: ExternalScripts password are instaled
+  replace: dest="{{ zabbix_server_ExternalScripts }}/{{ item }}"
+           regexp="^my \$pass = '(.*)';$"
+           replace="my $pass = '{{ zabbix_impi_ilo_pass }}';"
+  with_items: impi_ilo_scripts
+  tags: dev

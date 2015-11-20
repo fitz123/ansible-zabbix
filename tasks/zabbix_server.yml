@@ -32,3 +32,7 @@
 
 - name: service is up and running
   service: name=zabbix-server state=running
+
+- name: IPMI monitoring for iLO
+  include: ipmi_ilo.yml
+  when: zabbix_server_ipmi_ilo

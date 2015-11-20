@@ -454,7 +454,7 @@ AlertScriptsPath=/usr/lib/zabbix/alertscripts
 # Default:
 # ExternalScripts=${datadir}/zabbix/externalscripts
 
-ExternalScripts=/usr/lib/zabbix/externalscripts
+ExternalScripts={{ zabbix_server_ExternalScripts }}
 
 ### Option: FpingLocation
 #	Location of fping.
@@ -545,6 +545,8 @@ Fping6Location=/usr/bin/fping6
 # Mandatory: no
 # Default:
 # User=zabbix
+
+User={{ zabbix_server_user }}
 
 ### Option: Include
 #	You may include individual files or all files in a directory in the configuration file.
