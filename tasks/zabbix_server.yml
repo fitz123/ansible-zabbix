@@ -36,3 +36,10 @@
 - name: IPMI monitoring for iLO
   include: ipmi_ilo.yml
   when: zabbix_server_ipmi_ilo
+
+- name: Elasticsearch integration
+  include: es_integration.yml
+  when: zabbix_server_es_integration
+  tags: 
+    - zabbix_server_es_integration
+    - zabbix_server

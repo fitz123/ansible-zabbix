@@ -4,6 +4,7 @@
 zabbix_server_enabled: no
 zabbix_frontend_enabled: no
 zabbix_server_ipmi_ilo: yes
+zabbix_server_es_integration: yes
 
 zabbix_ver: 
   major: 2.4
@@ -20,9 +21,11 @@ zabbix_php_requirements:
   date.timezone: 'Asia/Bangkok'
 
 # Zabbix-server configuration
-zabbix_server_StartPingers: 10
-zabbix_server_StartHTTPPollers: 32
+zabbix_server_StartPingers: 20
+zabbix_server_StartHTTPPollers: 20
 zabbix_server_StartSNMPTrapper: 1
-zabbix_server_StartIPMIPollers: 2
-zabbix_server_StartVMwareCollectors: 2
-zabbix_server_StartDiscoverers: 4
+zabbix_server_StartIPMIPollers: 5
+zabbix_server_StartVMwareCollectors: 5
+zabbix_server_StartDiscoverers: 5
+zabbix_server_StartPollers: 20
+zabbix_server_Timeout: 30

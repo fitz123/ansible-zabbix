@@ -13,6 +13,9 @@ zabbix_impi_ilo_pass: 'zabbixUSER911blaHhh!'
 
 zabbix_tmpdir: /usr/lib/zabbix/packages
 
+es_scripts:
+  - nginx_response_codes_count.sh
+
 impi_ilo_scripts: 
   - ilo_discovery.pl
   - ipmi_proliant.pl

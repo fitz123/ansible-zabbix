@@ -138,6 +138,8 @@ DBSocket=/var/run/mysqld/mysqld.sock
 # Default:
 # StartPollers=5
 
+StartPollers={{ zabbix_server_StartPollers | default('5') }}
+
 ### Option: StartIPMIPollers
 #	Number of pre-forked instances of IPMI pollers.
 #
@@ -146,7 +148,7 @@ DBSocket=/var/run/mysqld/mysqld.sock
 # Default:
 # StartIPMIPollers=0
 
-StartIPMIPollers={{ zabbix_server_StartIPMIPollers }}
+StartIPMIPollers={{ zabbix_server_StartIPMIPollers | default('1') }}
 
 ### Option: StartPollersUnreachable
 #	Number of pre-forked instances of pollers for unreachable hosts (including IPMI and Java).
@@ -403,7 +405,8 @@ StartSNMPTrapper={{ zabbix_server_StartSNMPTrapper }}
 # Range: 1-30
 # Default:
 # Timeout=3
-Timeout=10
+
+Timeout={{ zabbix_server_Timeout | default('3') }}
 
 ### Option: TrapperTimeout
 #	Specifies how many seconds trapper may spend processing new data.

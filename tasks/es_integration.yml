@@ -1,0 +1,9 @@
+---
+
+- name: Ensure dependencies are present
+  apt: name=curl state=present
+
+- name: ExternalScripts are in place
+  copy: src=scripts/{{ item }} dest={{ zabbix_server_ExternalScripts }}/
+        owner={{ zabbix_server_user }} group=adm mode=0570
+  with_items: es_scripts
