@@ -16,8 +16,6 @@
 ##################################
 
 es_addr='http://183.90.170.101:9200'
-index_dir='/var/lib/elasticsearch/elasticsearch/nodes/0/indices/'
-request='/tmp/request'
 index_type='nginx'
 
 last=`printf $1 2>/dev/null | grep -o '^[[:digit:]]*[smhdM]$'`
@@ -51,13 +49,11 @@ fi
 request=`printf "{
   \"query\": { 
     \"bool\": { 
-      \"must\": [
-        { \"term\":  { \"tags\": \"access\" }},
-        { \"term\":  { \"host\": \"$host\"   }}
-      ],
       \"filter\": [ 
+        { \"term\":  { \"tags\": \"access\" }},
+        { \"term\":  { \"host\": \"$host\" }},
         { \"range\": { \"response.code\": { \"gte\": \"$gte\", \"lte\": \"$lte\" }}},
-        { \"range\": { \"@timestamp\": { \"gt\": \"now-$last\" }}} 
+        { \"range\": { \"@timestamp\": { \"gt\": \"now-$last\" }}}
       ]
     }
   }
