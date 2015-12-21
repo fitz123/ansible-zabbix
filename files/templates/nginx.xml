@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>2.0</version>
-    <date>2015-12-10T13:12:55Z</date>
+    <date>2015-12-17T13:01:06Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -20,6 +20,9 @@
             <applications>
                 <application>
                     <name>Nginx</name>
+                </application>
+                <application>
+                    <name>Performance</name>
                 </application>
                 <application>
                     <name>Security</name>
@@ -75,7 +78,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>nginx[writing]</key>
+                    <key>nginx[waiting]</key>
                     <delay>20</delay>
                     <history>30</history>
                     <trends>365</trends>
@@ -161,7 +164,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>nginx[waiting]</key>
+                    <key>nginx[writing]</key>
                     <delay>20</delay>
                     <history>30</history>
                     <trends>365</trends>
@@ -333,49 +336,6 @@
                     <snmp_community/>
                     <multiplier>1</multiplier>
                     <snmp_oid/>
-                    <key>nginx_response_codes_count.sh[failed requests,rate]</key>
-                    <delay>60</delay>
-                    <history>90</history>
-                    <trends>365</trends>
-                    <status>0</status>
-                    <value_type>0</value_type>
-                    <allowed_hosts/>
-                    <units>req/sec</units>
-                    <delta>0</delta>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <formula>0.001</formula>
-                    <delay_flex/>
-                    <params>last(&quot;nginx_response_codes_count.sh[1000s,{HOST.NAME},400,599]&quot;)</params>
-                    <ipmi_sensor/>
-                    <data_type>0</data_type>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>Nginx</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                </item>
-                <item>
-                    <name>Nginx $1 $2</name>
-                    <type>15</type>
-                    <snmp_community/>
-                    <multiplier>1</multiplier>
-                    <snmp_oid/>
                     <key>nginx_response_codes_count.sh[success requests,ratio]</key>
                     <delay>60</delay>
                     <history>90</history>
@@ -451,6 +411,95 @@
                     <applications>
                         <application>
                             <name>Nginx</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                </item>
+                <item>
+                    <name>Nginx $1 $2</name>
+                    <type>15</type>
+                    <snmp_community/>
+                    <multiplier>1</multiplier>
+                    <snmp_oid/>
+                    <key>nginx_response_codes_count.sh[failed requests,rate]</key>
+                    <delay>60</delay>
+                    <history>90</history>
+                    <trends>365</trends>
+                    <status>0</status>
+                    <value_type>0</value_type>
+                    <allowed_hosts/>
+                    <units>req/sec</units>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>0.001</formula>
+                    <delay_flex/>
+                    <params>last(&quot;nginx_response_codes_count.sh[1000s,{HOST.NAME},400,599]&quot;)</params>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Nginx</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                </item>
+                <item>
+                    <name>Nginx CPU utilization</name>
+                    <type>0</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>proc.cputime[nginx]</key>
+                    <delay>30</delay>
+                    <history>90</history>
+                    <trends>365</trends>
+                    <status>0</status>
+                    <value_type>0</value_type>
+                    <allowed_hosts/>
+                    <units>%</units>
+                    <delta>1</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Nginx</name>
+                        </application>
+                        <application>
+                            <name>Performance</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -589,7 +638,7 @@
                     <logtimefmt/>
                 </item>
                 <item>
-                    <name>Number of $1 process</name>
+                    <name>Number of $1 processes</name>
                     <type>0</type>
                     <snmp_community/>
                     <multiplier>0</multiplier>
@@ -661,7 +710,7 @@
             <name>Nginx success requests ratio is less then 95%</name>
             <url/>
             <status>0</status>
-            <priority>2</priority>
+            <priority>3</priority>
             <description>Ratio of success requests (codes 200-399) to failed requests (codes 400-599) is less then 95%</description>
             <type>0</type>
             <dependencies/>
@@ -689,16 +738,11 @@
             <priority>1</priority>
             <description/>
             <type>0</type>
-            <dependencies>
-                <dependency>
-                    <name>Nginx WAF possibly attack</name>
-                    <expression>{Template App Nginx:naxsi_rate.sh[1000s,{HOST.NAME},error,NAXSI,NAXSI_FMT].last()}&gt;100</expression>
-                </dependency>
-            </dependencies>
+            <dependencies/>
         </trigger>
         <trigger>
-            <expression>{Template App Nginx:naxsi_rate.sh[1000s,{HOST.NAME},error,NAXSI,NAXSI_FMT].last()}&gt;100</expression>
-            <name>Nginx WAF possibly attack</name>
+            <expression>{Template App Nginx:naxsi_rate.sh[1000s,{HOST.NAME},error,NAXSI,NAXSI_FMT].max(1h)}&gt;100</expression>
+            <name>Nginx WAF possibly attack detected</name>
             <url/>
             <status>0</status>
             <priority>2</priority>

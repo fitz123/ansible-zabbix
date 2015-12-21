@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>2.0</version>
-    <date>2015-12-17T13:01:43Z</date>
+    <date>2015-12-17T13:02:06Z</date>
     <groups>
         <group>
             <name>Templates</name>
         </group>
     </groups>
     <templates>
+        <template>
+            <template>Kaneda web app</template>
+            <name>Template Kaneda web app</name>
+            <description/>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Web checks</name>
+                </application>
+            </applications>
+            <items/>
+            <discovery_rules/>
+            <macros/>
+            <templates/>
+            <screens/>
+        </template>
         <template>
             <template>Template OS Linux</template>
             <name>Template OS Linux</name>
