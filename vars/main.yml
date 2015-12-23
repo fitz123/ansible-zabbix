@@ -5,6 +5,7 @@ zabbix_conf_php: zabbix.conf.php
 
 zabbix_server_listen_port: 10051
 zabbix_server_ExternalScripts: /usr/lib/zabbix/externalscripts
+zabbix_server_AlertScriptsPath: /usr/lib/zabbix/alertscripts
 
 zabbix_server_user: zabbix
 # DO not change these - credentials installed on every iLO server

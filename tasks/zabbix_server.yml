@@ -30,6 +30,14 @@
   notify: zabbix server restart
   tags: zabbix_conf
 
+- name: AlertScripts are in place
+  copy: src={{ item }} dest={{ zabbix_server_AlertScriptsPath }}/
+        owner={{ zabbix_server_user }} group=adm mode=0570
+  with_fileglob:
+    - alertscripts/*
+  tags: 
+    - zabbix_conf
+
 - name: service is up and running
   service: name=zabbix-server state=running
 
