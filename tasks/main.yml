@@ -7,3 +7,7 @@
 - include: zabbix_frontend.yml
   when: zabbix_frontend_enabled
   tags: [zabbix, zabbix_frontend]
+
+- include: zabbix_proxy.yml
+  when: zabbix_proxy_enabled
+  tags: [zabbix, zabbix_proxy]

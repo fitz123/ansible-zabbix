@@ -1,0 +1,80 @@
+---
+
+- name: requirements are present
+  apt: name={{ item }} state=present
+  with_items:
+    - snmp
+    - libnet-snmp-perl
+    - snmp-mibs-downloader
+
+- name: tmp dir is present
+  file: path={{ zabbix_tmpdir }} state=directory
+
+- name: check zabbix-server state
+  stat: path=/usr/sbin/zabbix_proxy
+  register: zabbix_bin
+
+- name: get zabbix-proxy
+  get_url: url=http://repo.zabbix.com/zabbix/{{ zabbix_ver.major }}/{{ ansible_lsb.id | lower }}/pool/main/z/zabbix/{{ item.pkg }}_{{ zabbix_ver.major }}.{{ zabbix_ver.minor }}-1+{{ ansible_lsb.codename }}_{{ item.arch }}.deb
+           dest={{ zabbix_tmpdir }}/{{ item.pkg }}.deb
+  with_items:
+    - { pkg: zabbix-proxy-mysql, arch: amd64 }
+
+- name: zabbix-proxy-mysql package is present
+  apt: deb={{ zabbix_tmpdir }}/{{ item }}
+  with_items:
+    - 'zabbix-proxy-mysql.deb'
+
+- name: zabbix_proxy.conf
+  template: src={{ zabbix_proxy_conf }}.j2 dest=/etc/zabbix/{{ zabbix_proxy_conf }}
+  notify: zabbix proxy restart
+  tags: zabbix_conf
+
+#- name: AlertScripts are in place
+#  copy: src={{ item }} dest={{ zabbix_server_AlertScriptsPath }}/
+#        owner={{ zabbix_server_user }} group=adm mode=0570
+#  with_fileglob:
+#    - alertscripts/*
+#  tags: 
+#    - zabbix_conf
+#
+
+##
+# Database
+##
+
+- name: Provision Application Database
+  mysql_db: name={{ db }} state=present
+  register: app_db_state
+  when: mariadb_enabled
+
+- name: Grant application user access to DB
+  mysql_user: name={{ db_user }} priv={{ db }}.*:ALL
+              host="localhost" password={{ db_user_password }}
+              state=present
+  when: mariadb_enabled
+
+- name: Resore Database
+  mysql_db: name={{ db }} state=import target=/usr/share/zabbix-proxy-mysql/{{ item }}
+            login_user={{ db_user }} login_password={{ db_user_password }}
+  with_items:
+    - schema.sql
+  when: mariadb_enabled and app_db_state.changed
+
+##
+# Final
+##
+
+- name: service is up and running
+  service: name=zabbix-proxy state=running
+
+- name: IPMI monitoring for iLO
+  include: ipmi_ilo.yml
+  when: zabbix_server_ipmi_ilo
+
+- name: Elasticsearch integration
+  include: es_integration.yml
+  when: zabbix_server_es_integration
+  tags: 
+    - zabbix_server_es_integration
+    - zabbix_server

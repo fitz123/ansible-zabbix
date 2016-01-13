@@ -3,12 +3,14 @@
 # Installation
 zabbix_server_enabled: no
 zabbix_frontend_enabled: no
+zabbix_proxy_enabled: no
+zabbix_proxy_ProxyMode: 1
 zabbix_server_ipmi_ilo: yes
 zabbix_server_es_integration: yes
 
 zabbix_ver: 
   major: 2.4
-  minor: 6
+  minor: 7
 
 ## PHP configuration
 # https://www.zabbix.com/documentation/2.4/manual/installation/install_from_packages
@@ -28,4 +30,5 @@ zabbix_server_StartIPMIPollers: 5
 zabbix_server_StartVMwareCollectors: 5
 zabbix_server_StartDiscoverers: 5
 zabbix_server_StartPollers: 20
+zabbix_server_StartProxyPollers: 5
 zabbix_server_Timeout: 30

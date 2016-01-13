@@ -2,3 +2,6 @@
 
 - name: zabbix server restart
   service: name=zabbix-server state=restarted
+
+- name: zabbix proxy restart
+  service: name=zabbix-proxy state=restarted

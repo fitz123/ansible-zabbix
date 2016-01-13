@@ -1,6 +1,7 @@
 ---
 
 zabbix_server_conf: zabbix_server.conf
+zabbix_proxy_conf: zabbix_proxy.conf
 zabbix_conf_php: zabbix.conf.php
 
 zabbix_server_listen_port: 10051
