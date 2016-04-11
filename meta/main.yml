@@ -1,8 +1,6 @@
 ---
 dependencies:
   - { role: basics }
-  - { role: mariadb, mariadb_enabled: yes, mysql_long_query_time: 10,
-                                           mysql_innodb_buffer_pool_size: 2048,
-                                           mysql_innodb_buffer_pool_instances: 2 }
+  - { role: mariadb, mariadb_enabled: yes, mysql_long_query_time: 10 }
   - { role: nginx-src }
   - { role: php-fpm }

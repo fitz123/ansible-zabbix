@@ -10,7 +10,7 @@
 - name: tmp dir is present
   file: path={{ zabbix_tmpdir }} state=directory
 
-- name: check zabbix-server state
+- name: check zabbix-proxy state
   stat: path=/usr/sbin/zabbix_proxy
   register: zabbix_bin
 
@@ -21,14 +21,25 @@
     - { pkg: zabbix-proxy-mysql, arch: amd64 }
 
 - name: zabbix-proxy-mysql package is present
-  apt: deb={{ zabbix_tmpdir }}/{{ item }}
-  with_items:
-    - 'zabbix-proxy-mysql.deb'
+  apt: deb={{ zabbix_tmpdir }}/zabbix-proxy-mysql.deb
 
 - name: zabbix_proxy.conf
   template: src={{ zabbix_proxy_conf }}.j2 dest=/etc/zabbix/{{ zabbix_proxy_conf }}
   notify: zabbix proxy restart
   tags: zabbix_conf
+
+- name: include sysctl variables
+  include_vars: sysctl.yml
+
+- name: Change various sysctl-settings
+  sysctl:
+    name: '{{ item.key }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  with_dict: sysctl_zabbix
 
 #- name: AlertScripts are in place
 #  copy: src={{ item }} dest={{ zabbix_server_AlertScriptsPath }}/
@@ -54,12 +65,29 @@
               state=present
   when: mariadb_enabled
 
-- name: Resore Database
-  mysql_db: name={{ db }} state=import target=/usr/share/zabbix-proxy-mysql/{{ item }}
+#- name: Unarchive Database
+#  unarchive: src=/usr/share/doc/zabbix-proxy-mysql/{{ item }}.gz
+#             dest=/usr/share/doc/zabbix-proxy-mysql
+#             copy=no
+#  with_items:
+#    - schema.sql
+
+- name: Unarchive Database
+  command: gzip -d /usr/share/doc/zabbix-proxy-mysql/schema.sql.gz
+  with_items:
+    - schema.sql
+  failed_when: false
+  changed_when: false
+  tags:
+    - dev
+
+- name: Restore Database
+  mysql_db: name={{ db }} state=import target=/usr/share/doc/zabbix-proxy-mysql/{{ item }}
             login_user={{ db_user }} login_password={{ db_user_password }}
   with_items:
     - schema.sql
-  when: mariadb_enabled and app_db_state.changed
+  when: mariadb_enabled and ((app_db_state.changed is defined and app_db_state.changed) or (appdb_creation.changed is defined and appdb_creation.changed))
+  #when: mariadb_enabled and app_db_state.changed
 
 ##
 # Final

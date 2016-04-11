@@ -160,6 +160,8 @@ StartIPMIPollers={{ zabbix_server_StartIPMIPollers | default('1') }}
 # Default:
 # StartPollersUnreachable=1
 
+StartPollersUnreachable={{ zabbix_server_StartPollersUnreachable | default('1') }}
+
 ### Option: StartTrappers
 #	Number of pre-forked instances of trappers.
 #	Trappers accept incoming connections from Zabbix sender, active agents and active proxies.
@@ -295,7 +297,7 @@ StartVMwareCollectors={{ zabbix_server_StartVMwareCollectors | default ('1') }}
 # Default:
 # StartSNMPTrapper=0
 
-StartSNMPTrapper={{ zabbix_server_StartSNMPTrapper | default('1') }}
+StartSNMPTrapper={{ zabbix_server_StartSNMPTrapper | default('0') }}
 
 ### Option: ListenIP
 #	List of comma delimited IP addresses that the trapper should listen on.

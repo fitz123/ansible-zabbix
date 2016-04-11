@@ -21,9 +21,7 @@
     - { pkg: zabbix-server-mysql, arch: amd64 }
 
 - name: zabbix-server-mysql package is present
-  apt: deb={{ zabbix_tmpdir }}/{{ item }}
-  with_items:
-    - 'zabbix-server-mysql.deb'
+  apt: deb={{ zabbix_tmpdir }}/zabbix-server-mysql.deb
 
 - name: zabbix_server.conf
   template: src={{ zabbix_server_conf }}.j2 dest=/etc/zabbix/{{ zabbix_server_conf }}
@@ -37,6 +35,19 @@
     - alertscripts/*
   tags: 
     - zabbix_conf
+
+- name: include sysctl variables
+  include_vars: sysctl.yml
+
+- name: Change various sysctl-settings
+  sysctl:
+    name: '{{ item.key }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  with_dict: sysctl_zabbix
 
 - name: service is up and running
   service: name=zabbix-server state=running
