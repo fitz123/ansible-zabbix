@@ -72,17 +72,17 @@
 #  with_items:
 #    - schema.sql
 
-- name: Unarchive Database
-  command: gzip -d /usr/share/doc/zabbix-proxy-mysql/schema.sql.gz
-  with_items:
-    - schema.sql
-  failed_when: false
-  changed_when: false
-  tags:
-    - dev
+#- name: Unarchive Database
+#  command: gzip -d /usr/share/doc/zabbix-proxy-mysql/schema.sql.gz
+#  with_items:
+#    - schema.sql
+#  failed_when: false
+#  changed_when: false
+#  tags:
+#    - dev
 
 - name: Restore Database
-  mysql_db: name={{ db }} state=import target=/usr/share/doc/zabbix-proxy-mysql/{{ item }}
+  mysql_db: name={{ db }} state=import target=/usr/share/doc/zabbix-proxy-mysql/{{ item }}.gz
             login_user={{ db_user }} login_password={{ db_user_password }}
   with_items:
     - schema.sql
