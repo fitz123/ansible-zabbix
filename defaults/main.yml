@@ -10,7 +10,7 @@ zabbix_server_es_integration: yes
 
 zabbix_ver: 
   major: 3.0
-  minor: 1
+  minor: 2
 
 ## PHP configuration
 # https://www.zabbix.com/documentation/3.0/manual/installation/install_from_packages

@@ -10,18 +10,17 @@
 - name: tmp dir is present
   file: path={{ zabbix_tmpdir }} state=directory
 
-- name: check zabbix-proxy state
-  stat: path=/usr/sbin/zabbix_proxy
-  register: zabbix_bin
-
 - name: get zabbix-proxy
   get_url: url=http://repo.zabbix.com/zabbix/{{ zabbix_ver.major }}/{{ ansible_lsb.id | lower }}/pool/main/z/zabbix/{{ item.pkg }}_{{ zabbix_ver.major }}.{{ zabbix_ver.minor }}-1+{{ ansible_lsb.codename }}_{{ item.arch }}.deb
-           dest={{ zabbix_tmpdir }}/{{ item.pkg }}.deb
+           dest={{ zabbix_tmpdir }}/{{ item.pkg }}_{{ zabbix_ver.major }}.{{ zabbix_ver.minor }}-1+{{ ansible_lsb.codename }}_{{ item.arch }}.deb
   with_items:
     - { pkg: zabbix-proxy-mysql, arch: amd64 }
 
 - name: zabbix-proxy-mysql package is present
-  apt: deb={{ zabbix_tmpdir }}/zabbix-proxy-mysql.deb
+  apt: deb={{ zabbix_tmpdir }}/{{ item.pkg }}_{{ zabbix_ver.major }}.{{ zabbix_ver.minor }}-1+{{ ansible_lsb.codename }}_{{ item.arch }}.deb
+  with_items:
+    - { pkg: zabbix-proxy-mysql, arch: amd64 }
+  notify: zabbix proxy restart
 
 - name: zabbix_proxy.conf
   template: src={{ zabbix_proxy_conf }}.j2 dest=/etc/zabbix/{{ zabbix_proxy_conf }}

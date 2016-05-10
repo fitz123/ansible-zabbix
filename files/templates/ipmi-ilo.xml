@@ -46,7 +46,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>ipmi_proliant.pl['FRU Board Serial Number',fru,{$ILO}]</key>
+                    <key>ipmi_proliant.pl['FRU Board Serial Number',fru,{HOST.DNS2}]</key>
                     <delay>3600</delay>
                     <history>1</history>
                     <trends>365</trends>
@@ -88,7 +88,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>ipmi_proliant.pl['FRU Chassis Serial Number',fru,{$ILO}]</key>
+                    <key>ipmi_proliant.pl['FRU Chassis Serial Number',fru,{HOST.DNS2}]</key>
                     <delay>3600</delay>
                     <history>1</history>
                     <trends>365</trends>
@@ -130,7 +130,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>ipmi_proliant.pl['FRU Chassis Type',fru,{$ILO}]</key>
+                    <key>ipmi_proliant.pl['FRU Chassis Type',fru,{HOST.DNS2}]</key>
                     <delay>3600</delay>
                     <history>1</history>
                     <trends>365</trends>
@@ -172,7 +172,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>ipmi_proliant.pl['Firmware Revision',bmc,{$ILO}]</key>
+                    <key>ipmi_proliant.pl['Firmware Revision',bmc,{HOST.DNS2}]</key>
                     <delay>3600</delay>
                     <history>7</history>
                     <trends>365</trends>
@@ -214,7 +214,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>icmpping[{$ILO},10,,,]</key>
+                    <key>icmpping[{HOST.DNS2},10,,,]</key>
                     <delay>60</delay>
                     <history>7</history>
                     <trends>365</trends>
@@ -258,7 +258,7 @@
                     <snmp_community/>
                     <multiplier>0</multiplier>
                     <snmp_oid/>
-                    <key>ipmi_proliant.pl['FRU Board Product Name',fru,{$ILO}]</key>
+                    <key>ipmi_proliant.pl['FRU Board Product Name',fru,{HOST.DNS2}]</key>
                     <delay>3600</delay>
                     <history>1</history>
                     <trends>365</trends>
@@ -301,7 +301,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>ilo_discovery.pl[{$ILO},chassis,fault,discrete]</key>
+                    <key>ilo_discovery.pl[{HOST.DNS2},chassis,fault,discrete]</key>
                     <delay>3600</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -331,7 +331,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>ipmi_proliant.pl['{#KEY}',chassis,'{$ILO}']</key>
+                            <key>ipmi_proliant.pl['{#KEY}',chassis,'{HOST.DNS2}']</key>
                             <delay>300</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -370,7 +370,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',chassis,'{$ILO}'].str(true)}=1</expression>
+                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',chassis,'{HOST.DNS2}'].str(true)}=1</expression>
                             <name>{#KEY}</name>
                             <url/>
                             <status>0</status>
@@ -387,7 +387,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>ilo_discovery.pl[{$ILO},chassis,&quot;system power&quot;]</key>
+                    <key>ilo_discovery.pl[{HOST.DNS2},chassis,&quot;system power&quot;]</key>
                     <delay>3610</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -417,7 +417,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>ipmi_proliant.pl['{#KEY}',chassis,{$ILO}]</key>
+                            <key>ipmi_proliant.pl['{#KEY}',chassis,{HOST.DNS2}]</key>
                             <delay>300</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -456,7 +456,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',chassis,{$ILO}].str(&quot;on&quot;)}=0 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',chassis,{$ILO}].strlen(0)}&gt;1</expression>
+                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',chassis,{HOST.DNS2}].str(&quot;on&quot;)}=0 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',chassis,{HOST.DNS2}].strlen(0)}&gt;1</expression>
                             <name>Server not powered on</name>
                             <url/>
                             <status>0</status>
@@ -473,7 +473,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>ilo_discovery.pl[{$ILO},sensor,&quot;disk&quot;,discrete]</key>
+                    <key>ilo_discovery.pl[{HOST.DNS2},sensor,&quot;disk&quot;,discrete]</key>
                     <delay>3620</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -503,7 +503,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,'{$ILO}',discrete]</key>
+                            <key>ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,'{HOST.DNS2}',discrete]</key>
                             <delay>600</delay>
                             <history>30</history>
                             <trends>365</trends>
@@ -542,7 +542,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,'{$ILO}',discrete].str(fault)}=1</expression>
+                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,'{HOST.DNS2}',discrete].str(fault)}=1</expression>
                             <name>{#KEY} fault detected</name>
                             <url/>
                             <status>1</status>
@@ -551,7 +551,7 @@
                             <type>0</type>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,'{$ILO}',discrete].diff(0)}&gt;0 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,'{$ILO}',discrete].strlen(0)}&gt;2</expression>
+                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,'{HOST.DNS2}',discrete].diff(0)}&gt;0 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,'{HOST.DNS2}',discrete].strlen(0)}&gt;2</expression>
                             <name>{#KEY} status changed</name>
                             <url/>
                             <status>1</status>
@@ -568,7 +568,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>ilo_discovery.pl[{$ILO},sensor,&quot;fan&quot;,numeric]</key>
+                    <key>ilo_discovery.pl[{HOST.DNS2},sensor,&quot;fan&quot;,numeric]</key>
                     <delay>3630</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -598,7 +598,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>ipmi_proliant.pl['{#KEY}',sensor,'{$ILO}',discrete]</key>
+                            <key>ipmi_proliant.pl['{#KEY}',sensor,'{HOST.DNS2}',discrete]</key>
                             <delay>60</delay>
                             <history>7</history>
                             <trends>365</trends>
@@ -640,7 +640,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>ipmi_proliant.pl['{#KEY}',sensor,'{$ILO}',{#TYPE}]</key>
+                            <key>ipmi_proliant.pl['{#KEY}',sensor,'{HOST.DNS2}',{#TYPE}]</key>
                             <delay>60</delay>
                             <history>7</history>
                             <trends>365</trends>
@@ -679,7 +679,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,'{$ILO}',discrete].str(&quot;Lost&quot;)}=1 | {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,'{$ILO}',discrete].str(&quot;Non-redundant&quot;)}=1</expression>
+                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,'{HOST.DNS2}',discrete].str(&quot;Lost&quot;)}=1 | {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,'{HOST.DNS2}',discrete].str(&quot;Non-redundant&quot;)}=1</expression>
                             <name>Fans not redundant</name>
                             <url/>
                             <status>0</status>
@@ -716,7 +716,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template IPMI Script iLO Discovery</host>
-                                        <key>ipmi_proliant.pl['{#KEY}',sensor,'{$ILO}',{#TYPE}]</key>
+                                        <key>ipmi_proliant.pl['{#KEY}',sensor,'{HOST.DNS2}',{#TYPE}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -729,7 +729,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>ilo_discovery.pl[{$ILO},sensor,&quot;memory&quot;,discrete]</key>
+                    <key>ilo_discovery.pl[{HOST.DNS2},sensor,&quot;memory&quot;,discrete]</key>
                     <delay>3690</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -759,7 +759,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>ipmi_proliant.pl['{#KEY}',sensor,&quot;{$ILO}&quot;,discrete]</key>
+                            <key>ipmi_proliant.pl['{#KEY}',sensor,&quot;{HOST.DNS2}&quot;,discrete]</key>
                             <delay>300</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -798,7 +798,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>({Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,&quot;{$ILO}&quot;,discrete].str(error)}=1 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,&quot;{$ILO}&quot;,discrete].str(Correctable)}=0) | {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,&quot;{$ILO}&quot;,discrete].str(fault)}=1 | {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,&quot;{$ILO}&quot;,discrete].str(fail)}=1</expression>
+                            <expression>({Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,&quot;{HOST.DNS2}&quot;,discrete].str(error)}=1 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,&quot;{HOST.DNS2}&quot;,discrete].str(Correctable)}=0) | {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,&quot;{HOST.DNS2}&quot;,discrete].str(fault)}=1 | {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,&quot;{HOST.DNS2}&quot;,discrete].str(fail)}=1</expression>
                             <name>IML Memory error</name>
                             <url/>
                             <status>0</status>
@@ -815,7 +815,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>ilo_discovery.pl[{$ILO},sensor,&quot;power meter&quot;,numeric]</key>
+                    <key>ilo_discovery.pl[{HOST.DNS2},sensor,&quot;power meter&quot;,numeric]</key>
                     <delay>3640</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -845,7 +845,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>ipmi_proliant.pl['{#KEY}',sensor,{$ILO},numeric]</key>
+                            <key>ipmi_proliant.pl['{#KEY}',sensor,{HOST.DNS2},numeric]</key>
                             <delay>60</delay>
                             <history>7</history>
                             <trends>365</trends>
@@ -911,7 +911,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template IPMI Script iLO Discovery</host>
-                                        <key>ipmi_proliant.pl['{#KEY}',sensor,{$ILO},numeric]</key>
+                                        <key>ipmi_proliant.pl['{#KEY}',sensor,{HOST.DNS2},numeric]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -924,7 +924,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>ilo_discovery.pl[{$ILO},sensor,&quot;power supply&quot;,numeric]</key>
+                    <key>ilo_discovery.pl[{HOST.DNS2},sensor,&quot;power supply&quot;,numeric]</key>
                     <delay>3650</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -954,7 +954,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,{$ILO},numeric]</key>
+                            <key>ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,{HOST.DNS2},numeric]</key>
                             <delay>60</delay>
                             <history>7</history>
                             <trends>365</trends>
@@ -1020,7 +1020,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template IPMI Script iLO Discovery</host>
-                                        <key>ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,{$ILO},numeric]</key>
+                                        <key>ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,{HOST.DNS2},numeric]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -1033,7 +1033,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>ilo_discovery.pl[{$ILO},sensor,&quot;power suppl&quot;,discrete]</key>
+                    <key>ilo_discovery.pl[{HOST.DNS2},sensor,&quot;power suppl&quot;,discrete]</key>
                     <delay>3660</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -1063,7 +1063,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,{$ILO},discrete]</key>
+                            <key>ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,{HOST.DNS2},discrete]</key>
                             <delay>300</delay>
                             <history>7</history>
                             <trends>365</trends>
@@ -1102,7 +1102,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,{$ILO},discrete].str(&quot;Non-redundant&quot;)}=1  | {Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,{$ILO},discrete].str(&quot;Lost&quot;)}=1</expression>
+                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,{HOST.DNS2},discrete].str(&quot;Non-redundant&quot;)}=1  | {Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,{HOST.DNS2},discrete].str(&quot;Lost&quot;)}=1</expression>
                             <name>Power not redundant</name>
                             <url/>
                             <status>0</status>
@@ -1111,7 +1111,7 @@
                             <type>0</type>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,{$ILO},discrete].str(&quot;Fail&quot;)}=1</expression>
+                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,sensor,{HOST.DNS2},discrete].str(&quot;Fail&quot;)}=1</expression>
                             <name>{#KEY} Failure</name>
                             <url/>
                             <status>0</status>
@@ -1128,7 +1128,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>ilo_discovery.pl[{$ILO},sensor,temp,numeric]</key>
+                    <key>ilo_discovery.pl[{HOST.DNS2},sensor,temp,numeric]</key>
                     <delay>3670</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -1158,7 +1158,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>ipmi_proliant.pl['{#KEY}',sensor,{$ILO},discrete]</key>
+                            <key>ipmi_proliant.pl['{#KEY}',sensor,{HOST.DNS2},discrete]</key>
                             <delay>60</delay>
                             <history>7</history>
                             <trends>365</trends>
@@ -1200,7 +1200,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>ipmi_proliant.pl['{#KEY}',sensor,'{$ILO}',numeric]</key>
+                            <key>ipmi_proliant.pl['{#KEY}',sensor,'{HOST.DNS2}',numeric]</key>
                             <delay>60</delay>
                             <history>7</history>
                             <trends>365</trends>
@@ -1239,7 +1239,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,{$ILO},discrete].str(&quot;OK&quot;)}=0 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,{$ILO},discrete].str(&quot;N/A&quot;)}=0 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,{$ILO},discrete].strlen(0)}#0</expression>
+                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,{HOST.DNS2},discrete].str(&quot;OK&quot;)}=0 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,{HOST.DNS2},discrete].str(&quot;N/A&quot;)}=0 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl['{#KEY}',sensor,{HOST.DNS2},discrete].strlen(0)}#0</expression>
                             <name>Hardware {#KEY} too high</name>
                             <url/>
                             <status>0</status>
@@ -1276,7 +1276,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template IPMI Script iLO Discovery</host>
-                                        <key>ipmi_proliant.pl['{#KEY}',sensor,'{$ILO}',numeric]</key>
+                                        <key>ipmi_proliant.pl['{#KEY}',sensor,'{HOST.DNS2}',numeric]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -1289,7 +1289,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>ilo_discovery.pl[{$ILO},sensor,VRM,discrete]</key>
+                    <key>ilo_discovery.pl[{HOST.DNS2},sensor,VRM,discrete]</key>
                     <delay>3680</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -1319,7 +1319,7 @@
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>ipmi_proliant.pl[&quot;{#KEY}&quot;,&quot;sensor&quot;,{$ILO},discrete]</key>
+                            <key>ipmi_proliant.pl[&quot;{#KEY}&quot;,&quot;sensor&quot;,{HOST.DNS2},discrete]</key>
                             <delay>300</delay>
                             <history>7</history>
                             <trends>365</trends>
@@ -1358,7 +1358,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,&quot;sensor&quot;,{$ILO},discrete].str(fault)}=1 | {Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,&quot;sensor&quot;,{$ILO},discrete].str(fail)}=1</expression>
+                            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,&quot;sensor&quot;,{HOST.DNS2},discrete].str(fault)}=1 | {Template IPMI Script iLO Discovery:ipmi_proliant.pl[&quot;{#KEY}&quot;,&quot;sensor&quot;,{HOST.DNS2},discrete].str(fail)}=1</expression>
                             <name>{#KEY} problem</name>
                             <url/>
                             <status>0</status>
@@ -1378,7 +1378,7 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl['Firmware Revision',bmc,{$ILO}].diff(0)}&gt;0 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl['Firmware Revision',bmc,{$ILO}].strlen(0)}#0 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl['Firmware Revision',bmc,{$ILO}].strlen(#2)}#0</expression>
+            <expression>{Template IPMI Script iLO Discovery:ipmi_proliant.pl['Firmware Revision',bmc,{HOST.DNS2}].diff(0)}&gt;0 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl['Firmware Revision',bmc,{HOST.DNS2}].strlen(0)}#0 &amp; {Template IPMI Script iLO Discovery:ipmi_proliant.pl['Firmware Revision',bmc,{HOST.DNS2}].strlen(#2)}#0</expression>
             <name>iLO Firmware was changed</name>
             <url/>
             <status>0</status>
@@ -1388,7 +1388,7 @@
             <dependencies/>
         </trigger>
         <trigger>
-            <expression>{Template IPMI Script iLO Discovery:icmpping[{$ILO},10,,,].max(180)}=0</expression>
+            <expression>{Template IPMI Script iLO Discovery:icmpping[{HOST.DNS2},10,,,].max(180)}=0</expression>
             <name>{HOST.NAME} iLO is unavailable by ICMP</name>
             <url/>
             <status>0</status>

@@ -1,6 +1,0 @@
----
-dependencies:
-  - { role: basics }
-  - { role: mariadb, mariadb_enabled: yes, mysql_long_query_time: 10 }
-  - { role: nginx-src }
-  - { role: php-fpm }

@@ -76,17 +76,20 @@
 
 - name: get app
   get_url: url=http://repo.zabbix.com/zabbix/{{ zabbix_ver.major }}/{{ ansible_lsb.id | lower }}/pool/main/z/zabbix/{{ item.pkg }}_{{ zabbix_ver.major }}.{{ zabbix_ver.minor }}-1+{{ ansible_lsb.codename }}_{{ item.arch }}.deb
-           dest={{ zabbix_tmpdir }}/{{ item.pkg }}.deb
+           dest={{ zabbix_tmpdir }}/{{ item.pkg }}_{{ zabbix_ver.major }}.{{ zabbix_ver.minor }}-1+{{ ansible_lsb.codename }}_{{ item.arch }}.deb
+  register: zabbix_frontend_new_ver
   with_items:
     - { pkg: zabbix-frontend-php, arch: all }
 
 - name: app source is present
-  command: 'dpkg -x {{ zabbix_tmpdir }}/zabbix-frontend-php.deb {{ zabbix_tmpdir }}'
-  args: { creates: "/srv/www/{{ app }}" }
+  command: 'dpkg -x {{ zabbix_tmpdir }}/{{ item.pkg }}_{{ zabbix_ver.major }}.{{ zabbix_ver.minor }}-1+{{ ansible_lsb.codename }}_{{ item.arch }}.deb {{ zabbix_tmpdir }}'
+  when: zabbix_frontend_new_ver.changed
+  with_items:
+    - { pkg: zabbix-frontend-php, arch: all }
 
 - name: app is installed
   command: 'cp -R {{ zabbix_tmpdir }}/usr/share/zabbix/ /srv/www/'
-  args: { creates: "/srv/www/{{ app }}" }
+  when: zabbix_frontend_new_ver.changed
 
 - name: app font is present
   command: 'update-alternatives --install /srv/www/{{ app }}/fonts/graphfont.ttf zabbix-frontend-font /usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf 10'

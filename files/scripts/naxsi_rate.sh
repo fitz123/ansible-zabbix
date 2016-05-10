@@ -14,7 +14,7 @@
 #  20151210    initial creation
 ##################################
 
-es_addr='http://183.90.170.101:9200'
+es_addr='http://183.90.170.94:9200'
 index_type='nginx'
 
 last=`printf $1 2>/dev/null | grep -o '^[[:digit:]]*[smhdM]$'`
