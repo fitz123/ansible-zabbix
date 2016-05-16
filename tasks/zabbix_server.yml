@@ -6,6 +6,7 @@
     - snmp
     - libnet-snmp-perl
     - snmp-mibs-downloader
+    - jq
 
 - name: tmp dir is present
   file: path={{ zabbix_tmpdir }} state=directory
@@ -34,6 +35,20 @@
     - alertscripts/*
   tags: 
     - zabbix_conf
+
+- name: Check user for zabbix-alert-smtp.sh
+  lineinfile: dest={{ zabbix_server_AlertScriptsPath }}/zabbix-alert-smtp.sh
+              regexp="^MAIL_ACCOUNT = '(.*)'$"
+              line="MAIL_ACCOUNT = '{{ AuthUser }}'"
+              state=present
+              backrefs=yes
+
+- name: Check password for zabbix-alert-smtp.sh
+  lineinfile: dest={{ zabbix_server_AlertScriptsPath }}/zabbix-alert-smtp.sh
+              regexp="^MAIL_PASSWORD = '(.*)'$"
+              line="MAIL_PASSWORD = '{{ AuthPass }}'"
+              state=present
+              backrefs=yes
 
 - name: include sysctl variables
   include_vars: sysctl.yml

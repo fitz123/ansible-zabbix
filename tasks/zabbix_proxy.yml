@@ -6,6 +6,7 @@
     - snmp
     - libnet-snmp-perl
     - snmp-mibs-downloader
+    - jq
 
 - name: tmp dir is present
   file: path={{ zabbix_tmpdir }} state=directory
