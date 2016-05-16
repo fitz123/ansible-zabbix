@@ -15,14 +15,12 @@
               state=present
   when: mariadb_enabled
 
-- name: Resore Database
-  mysql_db: name={{ db }} state=import target=/usr/share/zabbix-server-mysql/{{ item }}
+- name: Restore Database
+  mysql_db: name={{ db }} state=import target=/usr/share/doc/zabbix-server-mysql/{{ item }}.gz
             login_user={{ db_user }} login_password={{ db_user_password }}
   with_items:
-    - schema.sql
-    - images.sql
-    - data.sql
-  when: mariadb_enabled and app_db_state.changed
+    - create.sql
+  when: mariadb_enabled and app_db_state.changed or (appdb_creation is defined and appdb_creation.changed)
 
 ##
 # PHP
